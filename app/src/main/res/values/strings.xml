@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BMI</string>
+
+    <string name="massM">Mass [kg]</string>
+    <string name="heightM">Height [cm]</string>
+    <string name="massI">Mass [lb]</string>
+    <string name="heightI">Height [in]</string>
+    <string name="count">COUNT</string>
+    <string name="bmi">BMI VALUE</string>
+    <string name="error_msg">Mass and height have to be numbers bigger than 0.</string>
+
+    <string name="metric">metric</string>
+    <string name="imperial">imperial</string>
+    <string name="author">author</string>
+
+    <string name="authorInfo">The author of this app is Natalia Sochacka</string>
+</resources>
