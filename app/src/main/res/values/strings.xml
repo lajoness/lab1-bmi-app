@@ -12,6 +12,16 @@
     <string name="metric">metric</string>
     <string name="imperial">imperial</string>
     <string name="author">author</string>
+    <string name="history">HISTORY</string>
 
     <string name="authorInfo">The author of this app is Natalia Sochacka</string>
+    <string name="BMIInfo">
+        \u25CF <b>&lt; 16.0</b> - Underweight (Severe thinness) \n
+        \u25CF <b>16.0–16.9</b> - Underweight (Moderate thinness) \n
+        \u25CF <b>17.0–18.4</b> - Underweight (Mild thinness) \n
+        \u25CF <b>18.5–24.9</b> - Normal range \n
+        \u25CF <b>25.0–29.9</b> - Overweight (Pre-obesity) \n
+        \u25CF <b>30.0–34.9</b> - Obesity (Class I) \n
+        \u25CF <b>35.0–39.9</b> - Obesity (Class II) \n
+        \u25CF <b>≥ 40.0</b> - Obesity (Class III) </string>
 </resources>

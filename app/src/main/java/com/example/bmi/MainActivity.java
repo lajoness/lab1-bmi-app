@@ -2,6 +2,7 @@ package com.example.bmi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -95,6 +96,19 @@ public class MainActivity extends AppCompatActivity {
                     BMITextView.setTextColor(Color.BLACK);
                     BMITextView.setText(R.string.error_msg);
                 }
+            }
+        });
+
+        final TextView BMITextView = findViewById(R.id.BMITextView);
+        BMITextView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent bmiIntent = new Intent(getApplicationContext(), BMIActivity.class);
+                String currBMI = BMITextView.getText().toString();
+                bmiIntent.putExtra("bmi", currBMI);
+                startActivity(bmiIntent);
             }
         });
     }
