@@ -7,14 +7,17 @@ import static org.junit.Assert.assertEquals;
 public class BMICalculatorUnitTest {
 
     @Test
-    public void testCalculateBMI() throws BMICalculator.ZeroNumberException {
+    public void testCalculateBMI() throws BMIViewModel.ZeroNumberException {
 
-        BMICalculator bmiCalcM = new BMICalculator(55.0, 155.0);
-        double bmi = bmiCalcM.calculateBMI("metric");
+        BMIViewModel bmiVM = new BMIViewModel();
+        bmiVM.height = 155.0;
+        bmiVM.mass = 55.0;
+        double bmi = bmiVM.calculateBMI("metric");
         assertEquals(String.format("%.2f", bmi), "22,89");
 
-        BMICalculator bmiCalcI = new BMICalculator(121.0, 61.0);
-        bmi = bmiCalcI.calculateBMI("imperial");
+        bmiVM.height = 61.0;
+        bmiVM.mass = 121.0;
+        bmi = bmiVM.calculateBMI("imperial");
         assertEquals(String.format("%.2f", bmi), "22,86");
     }
 }

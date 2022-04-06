@@ -1,15 +1,11 @@
 package com.example.bmi;
 
-public class BMICalculator {
+import androidx.lifecycle.ViewModel;
 
-    private Double height;
-    private Double mass;
+public class BMIViewModel extends ViewModel {
 
-    public BMICalculator(Double mass, Double height) {
-
-        this.height = height;
-        this.mass = mass;
-    }
+    public Double height;
+    public Double mass;
 
     public double calculateBMI(String dataType) throws ZeroNumberException {
 
@@ -36,4 +32,5 @@ public class BMICalculator {
             super(errorMessage);
         }
     }
+
 }

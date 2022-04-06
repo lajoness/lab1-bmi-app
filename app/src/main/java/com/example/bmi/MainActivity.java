@@ -1,9 +1,10 @@
 package com.example.bmi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,9 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private int currentMode = 0;
+    ArrayList bmiHistoryList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -52,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.author:
                 Intent authorIntent = new Intent(getApplicationContext(), AuthorActivity.class);
                 startActivity(authorIntent);
+                return true;
+
+            case R.id.history:
+                Intent historyIntent = new Intent(getApplicationContext(), HistoryActivity.class);
+                startActivity(historyIntent);
+                return true;
 
             default:
                 return super.onContextItemSelected(item);
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
+        final BMIViewModel viewModel = new ViewModelProvider(this).get(BMIViewModel.class);
 
         Button infoButton = findViewById(R.id.countButton);
 
@@ -76,21 +87,29 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    BMICalculator bmiCalculator = new BMICalculator(Double.valueOf(massEditText.getText().toString()), Double.valueOf(heightEditText.getText().toString()));
+                    viewModel.height = Double.valueOf(heightEditText.getText().toString());
+                    viewModel.mass = Double.valueOf(massEditText.getText().toString());
+
                     double bmi;
 
                     if (currentMode == 1) {
-                        bmi = bmiCalculator.calculateBMI("imperial");
+                        bmi = viewModel.calculateBMI("imperial");
                     }
                     else {
-                        bmi = bmiCalculator.calculateBMI("metric");
+                        bmi = viewModel.calculateBMI("metric");
                     }
 
                     BMITextView.setTextSize(45);
                     BMITextView.setTextColor(findColorForBMI(bmi));
-                    BMITextView.setText(String.format("%.2f", bmi));
+                    String bmiS = String.format("%.2f", bmi);
+                    BMITextView.setText(bmiS);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("SharedPref", MODE_PRIVATE);
+                    SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+
+                    prefEditor.putString("bmi" + (sharedPreferences.getAll().size() + 1), bmiS).apply();
                 }
-                catch (NumberFormatException | BMICalculator.ZeroNumberException ex) {
+                catch (NumberFormatException | BMIViewModel.ZeroNumberException ex) {
 
                     BMITextView.setTextSize(20);
                     BMITextView.setTextColor(Color.BLACK);
